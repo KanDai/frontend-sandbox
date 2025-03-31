@@ -1,0 +1,91 @@
+/* ベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 36px;
+    font-family: sans-serif;
+}
+
+.carousel {
+    width: 100%;
+    max-width: 800px;
+    margin-inline: auto;
+    position: relative;
+}
+
+.carousel__slides {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::scroll-button(left) {
+        content: '⬅' / 'Scroll Left';
+        left: 10px;
+    }
+
+    &::scroll-button(right) {
+        content: '⮕' / 'Scroll Right';
+        right: 10px;
+    }
+
+    &::scroll-button(*) {
+        position: absolute;
+        top: 45%;
+    }
+
+    scroll-marker-group: after;
+
+    &::scroll-marker-group {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 10px;
+        gap: 10px;
+    }
+}
+
+.carousel__slide {
+    list-style: none;
+    display: grid;
+    place-content: center;
+    flex: 0 0 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    &::scroll-marker {
+        display: block;
+        content: '';
+        aspect-ratio: 16 / 9;
+        background-size: cover;
+    }
+
+    &:nth-child(1)::scroll-marker {
+        background-image: url('https://picsum.photos/id/33/160/90');
+    }
+    &:nth-child(2)::scroll-marker {
+        background-image: url('https://picsum.photos/id/39/160/90');
+    }
+    &:nth-child(3)::scroll-marker {
+        background-image: url('https://picsum.photos/id/42/160/90');
+    }
+    &:nth-child(4)::scroll-marker {
+        background-image: url('https://picsum.photos/id/57/160/90');
+    }
+    &::scroll-marker:target-current {
+        filter: brightness(0.8);
+    }
+}
